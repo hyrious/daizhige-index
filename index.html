@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>殆知阁古代文献索引</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic.min.css">
+<body>
+
+<h2>殆知阁古代文献索引<span class="badge" data-badge="wip"></span></h2>
+
+<section class="flex">
+  <input type="text" id="github-token" placeholder="github token" class="flex-1" data-mask pattern="[0-9A-Fa-f]{40}">
+  <span class="flex-space"></span>
+  <code id="rate-limit" class="flex-auto rate-limit">(fetching...)</code>
+</section>
+
+<section id="tree"></section>
+
+<aside class="top-right fixed flex z1" aria-hidden="true">
+  <button id="theme-switch" class="oi" data-glyph="moon" title="夜间模式"></button>
+  <span class="flex-space"></span>
+  <button id="apply-mask" class="oi" data-glyph="eye" title="隐藏重要信息"></button>
+  <span class="flex-space"></span>
+  <button id="clear-storage" class="oi" data-glyph="trash" title="清空缓存"></button>
+  <span class="flex-space"></span>
+  <a id="search" href="https://github.com/garychowcmu/daizhigev20/find/master" class="oi" data-glyph="magnifying-glass" title="搜索"></a>
+  <span class="flex-space"></span>
+  <button id="show-info" class="oi" data-glyph="question-mark" title="查看帮助"></button>
+</aside>
+
+<section id="info" class="layer" aria-hidden="true" hidden>
+  Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit,
+  quia cupiditate. Accusantium eius quaerat ducimus asperiores,
+  accusamus autem recusandae eligendi vitae? Vitae maiores, corporis
+  temporibus soluta impedit error obcaecati quod?
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.7.7/dayjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.7.7/locale/zh-cn.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.7.7/plugin/relativeTime.js"></script>
+<script src="main.js"></script>
