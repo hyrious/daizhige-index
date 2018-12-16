@@ -215,6 +215,7 @@ summary {
   padding: 4px 8px;
 }
 
+a.file::after,
 summary.opened::after {
   content: attr(data-size);
   user-select: none;

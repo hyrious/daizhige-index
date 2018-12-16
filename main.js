@@ -92,26 +92,61 @@
         });
     };
 
+    // https://github.com/davglass/prettysize
+    const SIZES = ['Bytes', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB'];
+    const prettysize = (size, nospace, one, places = 1, numOnly = false) => {
+        if (typeof nospace === 'object') {
+            const opts = nospace;
+            nospace = opts.nospace;
+            one = opts.one;
+            places = opts.places || 1;
+            numOnly = opts.numOnly || false;
+        }
+        let mysize;
+        for (let id = 0; id < SIZES.length; ++id) {
+            const unit = SIZES[id];
+            if (one) unit = unit.slice(0, 1);
+            const s = Math.pow(1024, id);
+            let fixed;
+            if (size >= s) {
+                fixed = String((size / s).toFixed(places));
+                if (fixed.indexOf('.0') === fixed.length - 2)
+                    fixed = fixed.slice(0, -2);
+                mysize = fixed + (nospace ? '' : ' ') + unit;
+            }
+        }
+        if (!mysize) {
+            const _unit = (one ? SIZES[0].slice(0, 1) : SIZES[0]);
+            mysize = '0' + (nospace ? '' : ' ') + _unit;
+        }
+        if (numOnly) mysize = Number.parseFloat(mysize);
+        return mysize;
+    };
+
     const USER_REPO = 'garychowcmu/daizhigev20';
     const loadDirTo = async (root, dir = '') => {
         root.classList.add('loading');
         const headers = {};
         if (l.githubToken) headers.Authorization = `token ${l.githubToken}`;
         const url = `https://api.github.com/repos/${USER_REPO}/contents${dir}`;
-        const res = await fetch(url, { headers });
-        const json = await res.json();
+        let json = l[url];
+        if (!json) {
+            const res = await fetch(url, { headers });
+            l[url] = json = await res.json();
+        }
         root.classList.remove('loading');
         const prev = root.previousElementSibling;
         if (prev.tagName === 'SUMMARY')
             prev.dataset.size = json.length;
         refreshRateLimit();
-        for (const { name, type } of json) {
+        for (const { name, type, size } of json) {
             if (name.startsWith('_') || name.endsWith('.md')) continue;
             if (type === 'file') {
                 const a = document.createElement('a');
                 a.classList.add('file');
                 a.target = '_blank';
                 a.textContent = name;
+                a.dataset.size = prettysize(size);
                 a.href = `https://garychowcmu.github.io/daizhigev20${dir}/${name}`;
                 root.appendChild(a);
             } else if (type === 'dir') {
