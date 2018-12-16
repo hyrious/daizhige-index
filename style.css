@@ -78,7 +78,14 @@ samp {
   font-size: 1em;
 }
 
-a#search,
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--accent-color);
+}
+
 button {
   border: 2px solid transparent;
   border-radius: var(--border-radius);
@@ -101,7 +108,6 @@ input {
   font-size: 1em;
 }
 
-a#search:focus,
 input:focus,
 button:focus {
   background-color: var(--background-color);

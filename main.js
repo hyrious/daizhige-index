@@ -131,5 +131,8 @@
         }
     };
 
+    $('#search').onclick = () =>
+        window.open($('#search').dataset.href, '_blank').focus();
+
     loadDirTo($('#tree'));
 })();
