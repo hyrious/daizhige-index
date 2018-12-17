@@ -79,6 +79,7 @@ samp {
 }
 
 a {
+  color: inherit;
   text-decoration: none;
 }
 
@@ -137,6 +138,12 @@ input.invalid {
 
 .fixed {
   position: fixed;
+}
+
+@media (max-width: 433px) {
+  .fixed {
+    position: absolute;
+  }
 }
 
 .flex {
@@ -221,7 +228,6 @@ summary.opened::after {
   user-select: none;
   cursor: default;
   font-size: .8em;
-  text-transform: lowercase;
   color: var(--background-color);
   background-color: var(--color);
   border-radius: var(--border-radius);
@@ -277,4 +283,31 @@ details article {
   border-radius: var(--border-radius);
   padding: 0 4px;
   margin: 8px;
+}
+
+article {
+  padding: 8px;
+  white-space: pre-wrap;
+  background-color: var(--accent-background-color);
+  font-family: var(--mono-font);
+  text-align: justify;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  background-color: var(--background-color);
+  margin: 0;
+  padding: 8px;
+}
+
+#back::before {
+  content: '[..]';
+  color: var(--inactive-color);
+  font-family: var(--mono-font);
+  cursor: pointer;
+}
+
+#back:hover::before {
+  color: var(--color);
 }

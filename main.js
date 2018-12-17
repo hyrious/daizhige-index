@@ -136,7 +136,7 @@
         }
         root.classList.remove('loading');
         const prev = root.previousElementSibling;
-        if (prev.tagName === 'SUMMARY')
+        if (prev && prev.tagName === 'SUMMARY')
             prev.dataset.size = json.length;
         refreshRateLimit();
         for (const { name, type, size } of json) {
@@ -147,7 +147,8 @@
                 a.target = '_blank';
                 a.textContent = name;
                 a.dataset.size = prettysize(size);
-                a.href = `https://garychowcmu.github.io/daizhigev20${dir}/${name}`;
+                a.dataset.href = `${dir}/${name}`;
+                a.onclick = () => loadTxt(a.dataset.href);
                 root.appendChild(a);
             } else if (type === 'dir') {
                 const details = document.createElement('details');
@@ -170,4 +171,24 @@
         window.open($('#search').dataset.href, '_blank').focus();
 
     loadDirTo($('#tree'));
+
+    const layers = {
+        index: 0,
+        select(n) {
+            this.index = n;
+            [...$('#layers').children].forEach((e, i) => {
+                e.hidden = i !== n;
+            });
+        }
+    };
+
+    $('#back').onclick = () => layers.select(0);
+
+    const loadTxt = async (path) => {
+        const res = await fetch(`https://garychowcmu.github.io/daizhigev20${path}`);
+        const txt = await res.text();
+        $('#path').textContent = path;
+        $('#content').textContent = txt;
+        layers.select(1);
+    };
 })();
