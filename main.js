@@ -185,10 +185,12 @@
     $('#back').onclick = () => layers.select(0);
 
     const loadTxt = async (path) => {
-        const res = await fetch(`https://garychowcmu.github.io/daizhigev20${path}`);
+        const href = `https://garychowcmu.github.io/daizhigev20${path}`;
+        const res = await fetch(href);
         const txt = await res.text();
         $('#path').textContent = path;
         $('#content').textContent = txt;
+        $('#download').href = href;
         layers.select(1);
     };
 })();
